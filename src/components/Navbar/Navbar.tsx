@@ -6,6 +6,7 @@ import profile_icon from "../../assets/profile_img.png";
 import caret_icon from "../../assets/caret_icon.svg";
 import { useEffect, useRef } from "react";
 import { logout } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -30,7 +31,7 @@ const Navbar = () => {
             <li>TV shows</li>
             <li>Movies</li>
             <li>New & Popular</li>
-            <li>MY List</li>
+            <li><Link to="/watchlist" style={{color: 'white', textDecoration: 'none'}}>My List</Link></li>
             <li>Browse by Language</li>
           </ul>
         </div>

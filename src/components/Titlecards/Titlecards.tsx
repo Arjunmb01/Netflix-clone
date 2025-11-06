@@ -51,7 +51,6 @@ const Titlecards: React.FC<TitlecardProps> = ({ title, category }) => {
         currentRef.removeEventListener("wheel", handleWheel);
       }
     };
-    // Including 'category' in deps so it re-fetches on category change
   }, [category]);
 
   return (
@@ -59,13 +58,18 @@ const Titlecards: React.FC<TitlecardProps> = ({ title, category }) => {
       <h2>{title ? title : "Popular on Netflix"}</h2>
       <div className="card-list" ref={cardsRef}>
         {apiData.map((card) => (
-          <Link to={`/player/${card.id}`} className="card" key={card.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`}
-              alt={card.original_title}
-            />
-            <p>{card.original_title}</p>
-          </Link>
+          <div className="card-wrapper" key={card.id}>
+            <Link to={`/player/${card.id}`} className="card">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`}
+                alt={card.original_title}
+              />
+              <p>{card.original_title}</p>
+            </Link>
+            <Link to={`/movie/${card.id}`} className="info-link">
+              More Info
+            </Link>
+          </div>
         ))}
       </div>
     </div>
