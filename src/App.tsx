@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Player from "./pages/Player/Player";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";     // new
 import Watchlist from "./pages/Watchlist/Watchlist";           // new
+import Search from "./pages/Search/Search";                    // new
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,7 +19,7 @@ function App() {
       <>
         <ToastContainer theme="dark" />
         <Routes>
-          {/* Public: Login */}
+
           <Route
             path="/login"
             element={!currentUser ? <Login /> : <Navigate to="/" />}
@@ -30,9 +31,9 @@ function App() {
             <Route path="/player/:id" element={<Player />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/watchlist" element={<Watchlist />} />
+            <Route path="/search" element={<Search />} />
           </Route>
 
-          {/* Optional: Catch-all redirect */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </>

@@ -1,4 +1,4 @@
-// src/pages/Watchlist/Watchlist.tsx
+
 import { Link } from 'react-router-dom';
 import { useWatchlist } from '../../context/WatchlistContext';
 import Navbar from '../../components/Navbar/Navbar';

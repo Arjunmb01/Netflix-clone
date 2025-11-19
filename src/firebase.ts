@@ -25,15 +25,32 @@ const signUp = async (name: string, email: string, password: string) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
+    try {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name,
+        authProvider: "local",
+        email,
+      });
+    } catch (dbError: any) {
+      console.error("Database error (user still created):", dbError);
+      // User is created even if database write fails, so we continue
+    }
     toast.success("Account created successfully!");
   } catch (error: any) {
     console.error("Signup error:", error);
+    let errorMessage = "Signup failed";
+    if (error.code === "auth/email-already-in-use") {
+      errorMessage = "Email is already in use";
+    } else if (error.code === "auth/weak-password") {
+      errorMessage = "Password is too weak";
+    } else if (error.code === "auth/invalid-email") {
+      errorMessage = "Invalid email address";
+    } else if (error.code) {
+      errorMessage = error.code.split("/")[1]?.split("-")?.join(" ") || "Signup failed";
+    }
+    toast.error(errorMessage);
+    throw error;
   }
 };
 
